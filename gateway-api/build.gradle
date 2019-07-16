@@ -1,0 +1,17 @@
+dependencies {
+}
+
+def localMavenRepositoryPath = "file://" + new File(System.getenv("MAVEN_REPOSITORY")).absolutePath
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: localMavenRepositoryPath)
+            pom.project {
+                name = project.name
+                packaging = "jar"
+                description = "Common"
+            }
+        }
+    }
+}

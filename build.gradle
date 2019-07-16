@@ -1,0 +1,44 @@
+buildscript {
+    ext {
+        springBootVersion = "2.1.4.RELEASE"
+        lombokVersion = "1.18.8"
+        commomVersion = "1.0.1"
+    }
+
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+allprojects {
+    group "com.gearstation"
+    version "1.0.1"
+}
+
+
+subprojects {
+    apply plugin: "java"
+    apply plugin: "idea"
+    apply plugin: "maven"
+    apply plugin: "io.spring.dependency-management"
+
+    sourceCompatibility = "1.8"
+    targetCompatibility = "1.8"
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies{
+        implementation "com.gearstation:common:${commomVersion}"
+        compileOnly "org.projectlombok:lombok:${lombokVersion}"
+        annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    }
+}

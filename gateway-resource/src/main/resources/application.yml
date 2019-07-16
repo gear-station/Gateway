@@ -1,0 +1,50 @@
+server:
+  port: 8710
+  servlet:
+    context-path: /platform
+
+spring:
+  application:
+    name: platform
+
+  cloud:
+    consul:
+      host: 192.168.179.111
+      port: 8500
+      discovery:
+        service-name: ${spring.application.name}
+        health-check-path: /${spring.application.name}/actuator/health
+        health-check-timeout: 5s
+        health-check-interval: 10s
+    gateway:
+      routes:
+        - id: host_route
+          uri: lb://auth-center
+          predicates:
+            - Path=/myauth/**
+          filter:
+            - StripPrefix = 1
+
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+      exclude: WEB-INF/**
+
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
+    cache-duration: 30m
+    use-code-as-default-message: false
+
+#Spring actuator config
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: "*"
+        exclude: "env"
+
+logging:
+  config: classpath:log/logback-spring.xml
