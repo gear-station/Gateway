@@ -125,5 +125,8 @@
     <logger name="org.springframework.web" level="trace" additivity="false">
         <appender-ref ref="CONSOLE" />
     </logger>
+    <logger name="org.springframework.cloud" level="trace" additivity="false">
+        <appender-ref ref="CONSOLE" />
+    </logger>
 
 </configuration>

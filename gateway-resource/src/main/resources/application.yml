@@ -1,11 +1,9 @@
 server:
-  port: 8710
-  servlet:
-    context-path: /platform
+  port: 8730
 
 spring:
   application:
-    name: platform
+    name: gateway
 
   cloud:
     consul:
@@ -13,17 +11,28 @@ spring:
       port: 8500
       discovery:
         service-name: ${spring.application.name}
-        health-check-path: /${spring.application.name}/actuator/health
+        health-check-path: /actuator/health
         health-check-timeout: 5s
         health-check-interval: 10s
     gateway:
+#      discovery:
+#        locator:
+#          enabled: true
+#          lower-case-service-id: true
+#          filters:
+#            - args:
+#                parts: 1
+#              name: StripPrefix
       routes:
-        - id: host_route
+        - id: auth_route
           uri: lb://auth-center
           predicates:
-            - Path=/myauth/**
-          filter:
-            - StripPrefix = 1
+            - Path=/auth/**
+          filters:
+            - args:
+                regexp: /auth/(?<oldUrl>.*/)
+                replacement: /auth-center/$\{oldUrl}
+              name: RewritePath
 
   devtools:
     restart:

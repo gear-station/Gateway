@@ -3,13 +3,8 @@ plugins {
 }
 
 ext {
-    consulVersion = "2.1.1.RELEASE"
-    vavrVersion = "0.10.0"
-    commonsPoolVersion = "2.6.2"
-    jwtVersion = "3.8.1"
-    httpClientVersion = "4.5.9"
-    feignVersion = "2.1.1.RELEASE"
-    gatewayVersion = "Greenwich.SR2"
+    set("vavrVersion", "0.10.0")
+    set("httpClientVersion", "4.5.9")
 }
 
 jar {
@@ -20,14 +15,14 @@ jar {
 
 dependencies {
     implementation project(":gateway-api")
-    testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
-//    implementation "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
-//    implementation "org.springframework.boot:spring-boot-devtools:${springBootVersion}"
-    implementation "org.springframework.cloud:spring-cloud-starter-gateway:${gatewayVersion}"
-    implementation ("org.springframework.cloud:spring-cloud-starter-openfeign:${feignVersion}")
-//    implementation "org.springframework.cloud:spring-cloud-starter-netflix-ribbon:${feignVersion}"
-    implementation "org.springframework.cloud:spring-cloud-starter-consul-discovery:${consulVersion}"
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+    implementation "org.springframework.boot:spring-boot-starter-actuator"
+    implementation "org.springframework.boot:spring-boot-devtools"
+    implementation "org.springframework.cloud:spring-cloud-starter-gateway"
+    implementation "org.springframework.cloud:spring-cloud-starter-openfeign"
+    implementation "org.springframework.cloud:spring-cloud-starter-netflix-ribbon"
+    implementation "org.springframework.cloud:spring-cloud-starter-consul-discovery"
     implementation "io.vavr:vavr:${vavrVersion}"
-    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:${springBootVersion}"
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
     implementation "org.apache.httpcomponents:httpclient:${httpClientVersion}"
 }
