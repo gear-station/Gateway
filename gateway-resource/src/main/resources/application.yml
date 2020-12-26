@@ -5,6 +5,11 @@ spring:
   application:
     name: gateway
 
+  security:
+    user:
+      name: packy
+      password: packy
+
   cloud:
     consul:
       host: 192.168.179.111
@@ -13,7 +18,7 @@ spring:
         service-name: ${spring.application.name}
         health-check-path: /actuator/health
         health-check-timeout: 5s
-        health-check-interval: 10s
+        health-check-interval: 1000s
     gateway:
 #      discovery:
 #        locator:
